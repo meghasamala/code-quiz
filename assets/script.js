@@ -30,7 +30,7 @@ var setUp = function() {
     intro.style.display = "block"
     questionNum = 0
     totalTime = 76
-    countdown.textContent = ""
+    countdown.textContent = "0"
     initials.value = ""
 }
 

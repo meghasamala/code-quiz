@@ -9,18 +9,20 @@
 </head>
 <body>
     <div id="content">
-        <div id="high-score-div">
-            <a href="#" id="view-high-scores">View High Scores</a>
-        </div>
-        <div id="timer-div">
-            <p>Time: <span id="countdown"></span></p> 
+        <div id="top-row">
+            <div id="high-score-div">
+                <a href="#" id="view-high-scores">View High Scores</a>
+            </div>
+            <div id="timer-div">
+                <p>Time: <span id="countdown">0</span></p> 
+            </div>
         </div>
         <div id="initial-div">
             <h1>Coding Quiz Challenge</h1>
             <p>Try to answer the following code related questions within the time limit.
                 Keep in mind that incorrect answers will penalize your score/time by ten seconds!
             </p>
-            <button id="start-btn">Start Quiz</button>
+            <button id="start-btn" class="btn">Start Quiz</button>
         </div>
         <div id="questions-div">
             <h1 id="question"></h1>
