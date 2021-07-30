@@ -1,3 +1,4 @@
+// using querySelector to target certain elements
 var countdown = document.querySelector("#countdown")
 var startBtn = document.querySelector("#start-btn")
 var questionNum = 0
@@ -23,6 +24,7 @@ var content = document.querySelector("#content")
 var scoreBtn = document.querySelector("#view-high-scores")
 
 // GIVEN I am taking a code quiz
+// setUp function to establish intro page and reset timer/questions
 var setUp = function() {
     quizQuestions.style.display = "none"
     quizEnd.style.display = "none"
@@ -34,6 +36,7 @@ var setUp = function() {
     initials.value = ""
 }
 
+// quiz questions in an array
 var quiz = [
     { question: "Commonly used data types do NOT include:",
       choices: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
@@ -56,8 +59,10 @@ var quiz = [
       answer: "4. console.log"
     }   
 ];
+
 // WHEN I click the start button
 // THEN a timer starts and I am presented with a question
+// startTimer function starts up and displays timer, ends quiz if questions run out or timer reaches 0
 var totalTime = 76 
 var startTimer = function() {
     var interval = setInterval(function() {
@@ -72,6 +77,7 @@ var startTimer = function() {
     }, 1000);
 };
 
+// makeQuestion assembles questions by going through quiz array
 var makeQuestion = function() {
     intro.style.display = "none"
     quizQuestions.style.display = "block"
@@ -89,11 +95,10 @@ var makeQuestion = function() {
 
 // WHEN I answer a question
 // THEN I am presented with another question
+// event listener on each answer button to check if answer matches correct answer in array
 ansBtn.forEach(element => {
     element.addEventListener("click", function(event) {
 
-//ansBtn.addEventListener("click", function(event) {
-//var nextQuestion = function(event) {
     var answerChoice = event.target;
 
     var lineBreak = document.createElement("hr")
@@ -103,6 +108,7 @@ ansBtn.forEach(element => {
 
     if (answerChoice.textContent == quiz[questionNum].answer) {
         evaluateAns.textContent = "Correct!";
+// index increments when answer button is clicked
         questionNum++
     }
 // WHEN I answer a question incorrectly
@@ -112,21 +118,23 @@ ansBtn.forEach(element => {
         evaluateAns.textContent = "Wrong!";
         questionNum++
     } 
+// answer checker displays on screen once question is answered
     content.appendChild(lineBreak)
     content.appendChild(evaluateAns)
-
+// gets rid of answer check after 1 second
     setTimeout(function() {
         lineBreak.remove()
         evaluateAns.remove()
     }, 1000)
 
+// makes new question after incrementing
     makeQuestion()
     })
 });
 
 // WHEN the game is over
 // THEN I can save my initials and score
-
+// displays user input page 
 var gameOver = function() {
     intro.style.display = "none"
     quizQuestions.style.display = "none"
@@ -136,6 +144,7 @@ var gameOver = function() {
 };
 
 var saveScores = function() {
+// saves score and initials as key:value object in an array
     var scoresObject = {
         id: initials.value,
         score: finalScore.textContent
@@ -148,6 +157,7 @@ var saveScores = function() {
         scoresArray = JSON.parse(scoresArray)
     }
     scoresArray.push(scoresObject)
+// sets items to localStorage
     localStorage.setItem("scores", JSON.stringify(scoresArray))
 
     scoresList.innerHTML = ""
@@ -156,12 +166,14 @@ var saveScores = function() {
 }
 
 var loadScores = function() {
+// displays all saved high scores
     intro.style.display = "none"
     quizQuestions.style.display = "none"
     quizScores.style.display = "block"
     quizEnd.style.display = "none"
     scoresArray = localStorage.getItem("scores")
     scoresArray = JSON.parse(scoresArray)
+// adds list element to unordered list for each new score added
     if (scoresArray !== null) {
         for (var i = 0; i < scoresArray.length; i++) {
             var scoreEl = document.createElement("li")
@@ -170,7 +182,7 @@ var loadScores = function() {
         }
     }
 }
-
+// button event listeners
 clearBtn.addEventListener("click", function() {
     localStorage.clear()
     scoresList.innerHTML = ""
@@ -183,7 +195,7 @@ backBtn.addEventListener("click", function() {
 submitBtn.addEventListener("click", function() {
     saveScores()
 })
-
+// for view high scores button that is always present on page
 scoreBtn.addEventListener("click", function() {
     intro.style.display = "none"
     quizQuestions.style.display = "none"
@@ -193,14 +205,11 @@ scoreBtn.addEventListener("click", function() {
 
     loadScores()
 })
-
+// calling the functions to set up the whole page
 setUp();
 startBtn.addEventListener("click", function() {
     startTimer()
     makeQuestion()
 });
-// ans0.addEventListener("click", nextQuestion());
-// ans1.addEventListener("click", nextQuestion());
-// ans2.addEventListener("click", nextQuestion());
-// ans3.addEventListener("click", nextQuestion());
+
     

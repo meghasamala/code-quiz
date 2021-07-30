@@ -25,7 +25,7 @@ body p {
     display: block;
     float: right;
 }
-
+/* hiding elements until click events */
 #questions-div, #final-score-div, #saved-scores {
     display: none;
 }
@@ -42,12 +42,12 @@ hr {
 #evaluateAns {
     text-align: center;
 }
-
+/* scoreboard styling */
 ul {
     list-style-type: none;
     background: plum;
 }
-
+/* button styling */
 .btn {
     font-size: larger;
     background-color: plum;
@@ -56,3 +56,4 @@ ul {
     border-radius: 8px;
     border-style: solid;
 }
+
